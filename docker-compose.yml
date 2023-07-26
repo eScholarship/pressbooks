@@ -1,0 +1,32 @@
+version: '3.9'
+services:
+  wordpress:
+    image: cdl-pressbooks  # Replace 'my_pressbooks_image' with the image name you used when building the Dockerfile
+    ports:
+      - "8080:80"  # Map port 8080 on the host to port 80 on the container
+    volumes:
+      - wordpress_data:/var/www/html/wp-content  # Persist WordPress data
+    depends_on:
+      - db  # Make sure the 'db' service (MySQL) is up before starting WordPress
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: pressbooks_db
+      WORDPRESS_DB_USER: pressbooks_user
+      WORDPRESS_DB_PASSWORD: pressbooks_password
+
+  db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"  # Map port 3306 on the host to port 3306 on the container
+    volumes:
+      - db_data:/var/lib/mysql  # Persist MySQL data
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: pressbooks_db
+      MYSQL_USER: pressbooks_user
+      MYSQL_PASSWORD: pressbooks_password
+
+volumes:
+  wordpress_data:
+  db_data:
+
