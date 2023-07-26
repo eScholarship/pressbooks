@@ -13,7 +13,18 @@ services:
       WORDPRESS_DB_NAME: pressbooks_db
       WORDPRESS_DB_USER: pressbooks_user
       WORDPRESS_DB_PASSWORD: pressbooks_password
-
+      # oddly-enough, while this is required to have Wordpress multisite,
+      # it seems that including this config causes the database to break?
+      # WORDPRESS_CONFIG_EXTRA: |
+      #   /* Multisite */
+      #   define('WP_ALLOW_MULTISITE', true );
+      #   define('MULTISITE', true);
+      #   define('SUBDOMAIN_INSTALL', false);
+      #   define('DOMAIN_CURRENT_SITE', 'localhost:8080');
+      #   define('PATH_CURRENT_SITE', '/');
+      #   define('SITE_ID_CURRENT_SITE', 1);
+      #   define('BLOG_ID_CURRENT_SITE', 1);
+      #
   db:
     image: mysql:latest
     ports:

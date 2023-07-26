@@ -20,7 +20,8 @@ COPY . /var/www/html/wp-content/plugins/pressbooks/
 
 # Copy the Composer dependencies from the host to the container
 COPY ./composer.json ./composer.lock ./
-RUN composer install --no-dev --optimize-autoloader
+# RUN composer install --no-dev --optimize-autoloader
+RUN composer install
 
 # Set the working directory back to the WordPress root directory
 WORKDIR /var/www/html/
